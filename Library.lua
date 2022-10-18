@@ -855,7 +855,7 @@ do
         end;
 
         function KeyPicker:GetState()
-            if TypeTrue == true then false end
+            if TypeTrue == true then return false end
             if KeyPicker.Mode == 'Always' then
                 return true;
             elseif KeyPicker.Mode == 'Hold' then
