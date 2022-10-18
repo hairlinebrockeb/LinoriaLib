@@ -21,6 +21,15 @@ local Options = {};
 
 getgenv().Toggles = Toggles;
 getgenv().Options = Options;
+local TypeTrue = false 
+game:GetService('UserInputService').InputBegan:Connect(function(key,istyping) --// could put it inside the while loop and check if its not loaded to load it again
+    if istyping then TypeTrue = true  return end 
+    TypeTrue = false --//could make it so it sets a global variable for holding a key to true instead of getstat
+end)
+game:GetService('UserInputService').InputEnded:Connect(function(key,istyping) --// could put it inside the while loop and check if its not loaded to load it again
+    if istyping then TypeTrue = true return end 
+    TypeTrue = false --//could make it so it sets a global variable for holding a key to true instead of getstat
+end)
 
 local Library = {
     Registry = {};
@@ -820,7 +829,7 @@ do
             if Info.NoUI then
                 return;
             end;
-
+            if TypeTrue == true then return end
             local State = KeyPicker:GetState();
 
             ContainerLabel.Text = string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode);
@@ -846,6 +855,7 @@ do
         end;
 
         function KeyPicker:GetState()
+            if TypeTrue == true then false end
             if KeyPicker.Mode == 'Always' then
                 return true;
             elseif KeyPicker.Mode == 'Hold' then
@@ -943,7 +953,7 @@ do
         end);
 
         Library:GiveSignal(InputService.InputBegan:Connect(function(Input)
-            if (not Picking) then
+            if (not Picking) and TypeTrue == false then
                 if KeyPicker.Mode == 'Toggle' then
                     local Key = KeyPicker.Value;
 
