@@ -27,8 +27,9 @@ game:GetService('UserInputService').InputBegan:Connect(function(key,istyping) --
     TypeTrue = false --//could make it so it sets a global variable for holding a key to true instead of getstat
 end)
 game:GetService('UserInputService').InputEnded:Connect(function(key,istyping) --// could put it inside the while loop and check if its not loaded to load it again
-    if istyping then TypeTrue = true return end 
-    TypeTrue = false --//could make it so it sets a global variable for holding a key to true instead of getstat
+--     if istyping then TypeTrue = true return end 
+--     TypeTrue = false --//could make it so it sets a global variable for holding a key to true instead of getstat
+       if istyping == false then TypeTrue = false end
 end)
 
 local Library = {
